@@ -1,0 +1,232 @@
+LINUX: basics, not admin level
+-----------------------------
+
+Absolute path:
+providing clear path from the beginning 
+Ex: cd /c/prgmfiles/....
+
+Relative path:
+providing path from current directory
+Ex: cd /opt/file1
+
+
+COPY a FILE:
+cp src dest
+
+COPY a DIRECTORY:
+cp -r src dest
+
+CUT PASTE:
+mv src dest
+
+another way for/to use mv command:
+mv old name .... used to rename files or directories also
+ex: mv mohan git or mv test1 dir1
+
+PERMISSIONS:
+
+files or directories::
+r = read = 4
+w = write = 2
+x = execution = 1
+
+Users | Group | Others
+rwx      rwx      rwx
+
+umask:
+(how to check, cmd is umask.)
+we won't be changing but can be changed using cmd, umask xxx
+
+dir:
+
+ 777  (full permissions)
+-022  (Umask value) 
+-----
+= 755  (means defualt: drwxrx-rx(for direc))
+
+file:
+
+666 (file doesn't have exec persmissions)
+
+
+ 666
+-022
+-----
+= 644 (means default: rw-r--r-- )
+
+
+ex: chmod 777 dir/file
+Example: 
+give the permissions to, file1 --> rwxrw-r--
+what is the syntax??
+
+Ans: chmod 764 file1
+
+for whole directory and all files same permission:
+cmd:: chmod -R 777/764/....
+
+
+
+Installations on Linux:
+yum is repo may having mostly all standard packages.
+Linux before 5 or 6 doesn't have yum. we have to install yum seperately
+
+ex:
+yum install git -y
+or 
+to check:: rpm -qa git
+
+
+Cmd for generating key in terminal::
+ssh -keygen
+
+
+process check:
+cmd... ps -ef
+
+create users:
+cmd.. useradd username, ex: useradd prasad
+psswd: cmd.. passwd xxxx, ex: passwd prasadabc
+
+delete user: dletes only user, won't delete directory or group
+userdel username... ex: userdel xxxx
+
+Note:
+1. Whenever we delete user, Group associated with User gets deleted
+2. Whenever we create a User, Group gets created.
+how to delete user's home dir
+
+to delete User's home dir:
+cmd.. userfel -r username.. ex: userdel -r xxx
+
+how to add/delete user's group
+1. cat/etc/group   
+2. Adding Group:  groupadd groupX
+3. Adding user to a Grp: usermod -aG groupX usernamexxx
+4. Deleting Grp: groupdel groupX 
+
+
+USER MANAGEMENT:
+how to check/list users & attributes::
+-------------------------------------
+cmd.. cat/etc/passwd
+ex: prasad:x:1000:1000::/home/prasad:/bin/bash
+this is called user stanza
+references:
+prasad... username
+x........ password feild
+1000..... userID 
+1000..... GroupID
+::....... Comment msg
+/home.... home dir
+/prasad.. user dir
+/bin..... shell dir
+/bash.... shell dir
+
+how to change attributes:
+-------------------------
+1. cat/etc/passwd
+2. ex: home dir change... usermod -d "/opt/dir1" userX
+       shell dir change... usermod -s "/bin/sh" userX
+       comment msg change.. usermod -c "Test-user" userX
+3. changing at a time:
+  ex: usermod -c "cloud-user" -d "/home/userX" -s "/bin/bash" usrX
+
+
+how to provide multiple attributes while creating user:
+-------------------------------------------
+lets say, reqmnts: /bin/sh, test-user2, /opt/test
+
+ex: useradd userXYX -s "/bin/sh" -c "Test-userXYZ" -d "/opt/test
+then,
+cat/etc/passwd
+check for the user details/attributes created for userXYZ.
+
+
+Qstn:
+password change for user assigned. how to change?
+
+ans: passwd usernamexxx, it will ask, you can setup the passwrd
+
+or admin/root has to change. it comes in Ansible going farward.
+
+
+
+ps -ef:
+------
+listing the process
+
+GREP: Global Reglr Exprssns,
+And it is a case senssitive | to ignore use -i
+---------------------------
+It is like a fitler and can list as per our reqmnts.
+
+ex:
+ps -ef | grep
+gives the output of ps -ef and connects to grep like a filter
+
+ps -ef | grep xxxx ... given info of xxxx from all ps
+or
+grep add git.. gives info of 'add' from 'Git' file
+or
+grep "config" git.. gives and o/p of config from git
+or 
+ex: grep "prasad" /etc/prasad
+ex: ps -ef | grep prasad
+
+to get word count (wc): ex: wc filenamexxx, ex: wc git.....
+---------------------------------------------------------
+to get only lines (l) :  ex wc -l git
+---------------------------------------------
+to get lines with word (l): ex: wc -lw git
+-------------------------------------------------------
+to get word with character (wc): ex: wc -wc git
+---------------------------------------------------
+displaying fornmt: lines words letters
+-------------------------------------------------
+ex: ps -ef | grep prasaf | wc
+-------------------------------
+
+kill a process: kill -9 pid (pid-process id)
+ex: kill -9 xxxx
+--------------------
+
+switching to users: su - xxxx .....ex: su - devops or su - prasad
+-note: only root user can switch to any users,
+       when a normal user swtichs to into other user it prompts & 	asks a passwrd.
+
+- if you dont mention any user, ex: su, it takes to root.
+----------------------------------------------------
+
+download and install from web and other functions:
+----------
+web soft down
+zip tar
+packages
+env var
+passwdlss auth
+linux to linux data cp
+adding 3rd party repo
+
+
+------------
+some other info:
+
+RUN LEVELS: Default run level is 3
+---------------------------------
+to check: who -r 
+to change the run level, ex: inti 1/2/3/...
+----------------------------------------------
+
+inti 0 -- shutdown
+inti 1 -- single user mode
+init 2 -- multi user mode 
+init 3 -- multi user mode, all config
+init 4 -- reserved
+init 5 -- GUI
+init 6 -- reboot/restart
+
+
+
+
+
