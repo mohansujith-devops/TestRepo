@@ -1,0 +1,111 @@
+JAVA:
+-------
+
+- Java is a pre-reqste for Maven/further Tomcat also.
+Version Java 1.8 or jdk11, but suggested jdk11
+
+Java For Windows & Env Vrbls:
+-----------------------------
+
+1. download from Oracle site
+2. search for jdk-11, windows x-64 Installer
+3. create account in oracle, and download .exe, install
+4. we need to set up ENV-varbls (other tools need to know 	where the java is)
+5. select the java installed dir path (C/pgmfls/Java/jdkxxx)
+6. Now, rightclik on This PC & go to my properties - advanced settings
+7. again advanced
+8. select User variabels and select New, give var name: JAVA_HOME, 
+for Systems variables, var value:paste the path(ex:C/prmfls/Java/jdk-11xx) and add /bin in the end of that path and click ok.
+
+open cmd prmt & check:
+java --version
+
+
+MAVEN for Windows & Env Vrbls:
+------------------------------
+1. Maven download from apache.org (3.8.6)
+2. decide the respective path and extract the downloaded file, install
+3. and the same as above, set up env. varibls.. user var: M2_HOME
+Sys var: click path, add new path and add /bin at the end, and click ok
+open cmd prmt & check:
+mvn --version, it displays java version as well.
+
+For Linux:
+----------
+connect to your linux server
+1. yum install java.
+or download java file to your windows and copy the file to linux using winscp
+for that,
+1. go to oracle site and download bin..tar.zip Linux x64 Compressed Archive, give the account details for oracle and download.
+2. got to linux server, connect to it from putty
+3. cd /opt/ and create dir java.. mkdir java
+3. cd /opt/java
+4. copy that jdk software into this java directory.
+
+using winscp:
+-------------
+-download winscp from official site (winscp.net)
+-install it in your windows
+
+1. go to the downloads and copy tha tar.giz file and paste it in your target path.
+2. take the Linux server IP (hostname -I)
+
+- now open winscp,
+  give linux server IP addrss,
+  mention user name, give passwd and login
+- left side is windows pane and right is linux
+- select the required pathh and drag and drop
+- use drag and drop option. its all. (it works vice versa as 	well)
+- extract the file in linux server, using tar -xvf filename
+
+setting Variables in Linux: there are many ways.
+-----------------------------------------------
+Java:
+------ 
+- now to go the same file path ex: /opt/java/jdk-11.x.x
+- create a script in the given respective path for,
+	Java:
+	create a file, vi /etc/profile.d/java.sh
+	add these 2 lines in that file,
+		export JAVA_HOME=/opt/java/jdk-11.0.16xxx
+		export PATH=${JAVA_HOME}/bin:${PATH}
+
+-  now run the script using, source /etc/profile.d/java.sh
+-  check the java version using, java --version
+
+
+MAVEN:
+-----
+- go to maven.apache.org
+- downnload maven, .bin.tar.gz file
+- copy into the respective path in your windows
+- and in linux we want it in lets say /opt/maven
+- open winscp, and match the dir, drag and drop the file
+- extract the file using, tar -xvf filename
+- open that directpry and hit pwd and set-up the envi varbls
+- script:
+	MAVEN:
+	create a file in,     /etc/profle.d/maven.sh
+	copy these 2 lines, 
+		export M2_HOME=/opt/maven/apache-maven-3.8.6
+		export PATH=${M2_Home}/bin:${PATH}
+
+- now run the script using, source /etc/profile.d/maven.sh
+
+- now check maven using, mvn --version
+
+
+
+
+cmds reference:
+
+tar -xvf .tar.gz
+for extracting a gz file
+
+tar -tvf file.tar.gz
+to view the file content without extracting
+
+tar -cvf filename.tar.gz directoryname
+to make a directory into .tar.gz file
+
+
